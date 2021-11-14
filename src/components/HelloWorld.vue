@@ -9,11 +9,11 @@
     <div>
       <button @click="getSum">&plus;</button>
       <button @click="getDiff">&minus;</button>
-      <button @click="getDiv">÷</button>
+      <button @click="getDiv" :disabled="(operand2 == 0)">÷</button>
       <button @click="getMult">×</button>
       <button @click="getExp(operand1 , operand2)">^</button>
       <button @click="getSqrt">√</button>
-      <button @click="getInt">∻</button>
+      <button @click="getInt" :disabled="(operand2 == 0)">∻</button>
     </div>
   </div>
 </template>
@@ -44,12 +44,7 @@ export default {
 
     },
     getDiv(){
-      if(this.operand2 ===0){
-        this.result = 'На ноль делить нельзя'
-      }else{
         this.result = this.operand1 / this.operand2;
-      }
-
     },
     getExp(a , b){
       if(b == 1){
@@ -62,11 +57,7 @@ export default {
       this.result = Math.pow(this.operand1, 1/this.operand2);
     },
     getInt(){
-      if(this.operand2 ===0){
-        this.result = 'На ноль делить нельзя'
-      }else{
         this.result = parseInt(this.operand1 / this.operand2);
-      }
     }
   },
 }
