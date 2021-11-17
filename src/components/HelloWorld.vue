@@ -1,19 +1,43 @@
 <template>
   <div class="hello">
     <h1>{{ msg }}</h1>
-    <h2>Результат: {{result}}</h2>
+    <h2 v-show="result">Результат: {{result}}</h2>
     <div>
       <input type="Number" placeholder="Первое число" v-model.number="operand1">
       <input type="Number" placeholder="Второе число" v-model.number="operand2">
     </div>
     <div>
-      <button @click="getSum">&plus;</button>
-      <button @click="getDiff">&minus;</button>
-      <button @click="getDiv" :disabled="(operand2 == 0)">÷</button>
-      <button @click="getMult">×</button>
-      <button @click="getExp(operand1 , operand2)">^</button>
-      <button @click="getSqrt">√</button>
-      <button @click="getInt" :disabled="(operand2 == 0)">∻</button>
+      <button
+      v-for="(btn, idx) in btns"
+      :key="idx" @click="calculate (btn)"
+      :title="`Операция ${btn}`"
+      :disabled=" operand1 === '' || operand2 === '' ">
+      {{btn}}
+      </button>
+      <div>
+        <input type="checkbox" id="checkbox" v-model="visionKeybord">
+        <label for="checkbox">Экранная клавиатура</label>
+        <br>
+        <button 
+        v-show="visionKeybord"
+        v-for="(keyBtn, idx) in keyBtns"
+        :key="idx"
+        :title="`Кнопка ${keyBtn}`"
+        @click="addKey(keyBtn)"
+        :v-model="focusInput"
+        >
+          {{keyBtn}}
+        </button>
+        <button
+        v-show="visionKeybord"
+        @click="backspace" >🠐</button>
+      </div>
+      <div>
+        <input type="radio" id="one" v-model="focusInput" value="operand1">
+        <label for="one">Операнд 1</label>
+        <input type="radio" id="two" v-model="focusInput" value="operand2">
+        <label for="two">Операнд 2</label>
+      </div>
     </div>
   </div>
 </template>
@@ -29,9 +53,39 @@ export default {
       result: '',
       operand1: 0,
       operand2: 0,
+      btns: ['+', '-', '×', '÷', '^', '√', '∻'],
+      visionKeybord: false,
+      keyBtns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+      focusInput: '',
     }
   },
   methods:{
+     calculate (operation = '+') {
+     switch (operation) {
+       case '+':
+         this.getSum()
+         break;
+       case '-':
+         this.getDiff()
+         break;
+       case '×':
+         this.getMult()
+         break;
+       case '÷':
+         this.getDiv()
+         break;
+        case '^':
+         this.getExp(this.operand1 , this.operand2)
+         break;
+        case '√':
+         this.getSqrt()
+         break;
+        case '∻':
+         this.getInt()
+         break;
+     }
+   },
+
     getSum(){
       this.result = this.operand1 + this.operand2;
     },
@@ -58,7 +112,31 @@ export default {
     },
     getInt(){
         this.result = parseInt(this.operand1 / this.operand2);
-    }
+    },
+    addKey(char){
+      if(this.focusInput == 'operand1'){
+        if(this.operand1 === 0){
+        this.operand1 = char;
+        } else{
+        this.operand1 = this.operand1*10 + char;
+        }
+      }else if(this.focusInput == 'operand2'){
+        if(this.operand2 === 0){
+        this.operand2 = char;
+        } else{
+        this.operand2 = this.operand2*10 + char;
+        }
+      }    
+    },
+    backspace(){
+      if(this.focusInput == 'operand1'){
+        const rem = this.operand1 % 10;
+        this.operand1 = (this.operand1 - rem) / 10;
+      }else if(this.focusInput == 'operand2'){
+        const rem = this.operand2 % 10;
+        this.operand2 = (this.operand2 - rem) / 10;
+        }
+      }  
   },
 }
 </script>
