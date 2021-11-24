@@ -11,7 +11,7 @@
       </thead>
       <tbody>
         <tr v-for="(item, idx) in items" :key="idx">
-          <td>{{ idx + 1 }}</td>
+          <td>{{ item.id }}</td>
           <td>{{ item.date }}</td>
           <td>{{ item.category }}</td>
           <td>{{ item.value }}</td>
@@ -42,6 +42,7 @@ export default {
 .payments-table {
   width: 500px;
   border-collapse: collapse;
+  margin-bottom: 30px;
   & th {
     font-weight: bold;
     padding: 10px;

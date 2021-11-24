@@ -8,6 +8,8 @@
 </template>
 
 <script>
+import { mapMutations } from "vuex";
+
 export default {
   name: "AddPaymentForm",
   data() {
@@ -27,13 +29,16 @@ export default {
     },
   },
   methods: {
+    ...mapMutations({
+      addData: "addDataToPaymentsList",
+    }),
     onSaveClick() {
       const data = {
         date: this.date || this.getCurrentDate,
         category: this.category,
         value: this.value,
       };
-      this.$emit("addNewPayment", data);
+      this.addData(data);
     },
   },
 };
@@ -57,7 +62,7 @@ export default {
     padding: 10px 15px;
     background-color: rgb(27, 141, 103);
     color: rgb(255, 255, 255);
-    border: none;
+    border: 1px solid rgb(27, 141, 103);
     border-radius: 5px;
     max-width: 125px;
     align-self: flex-end;

@@ -8,8 +8,9 @@
         <button class="form-btn" @click="showForm = !showForm">
           ADD NEW COST +
         </button>
-        <AddPaymentForm v-show="showForm" @addNewPayment="onDataPaymentAdd" />
-        <PaymentsDisplay :items="paymentsList" />
+        <AddPaymentForm v-show="showForm" />
+        <PaymentsDisplay :items="currentElements" />
+        <Pagination :cur="1" :n="n" :length="6" @paginate="onChangePage" />
       </main>
     </div>
   </div>
@@ -18,45 +19,43 @@
 <script>
 import AddPaymentForm from "./components/AddPaymentForm.vue";
 import PaymentsDisplay from "./components/PaymentsDisplay.vue";
+import { mapGetters, mapActions } from "vuex";
+import Pagination from "./components/Pagination.vue";
 
 export default {
   name: "App",
   components: {
     PaymentsDisplay,
     AddPaymentForm,
+    Pagination,
   },
   data() {
     return {
-      paymentsList: [],
       showForm: false,
+      page: 1,
+      n: 3,
     };
   },
-  methods: {
-    fetchData() {
-      return [
-        {
-          date: "28.03.2020",
-          category: "Food",
-          value: 169,
-        },
-        {
-          date: "24.03.2020",
-          category: "Transport",
-          value: 360,
-        },
-        {
-          date: "24.03.2020",
-          category: "Food",
-          value: 532,
-        },
-      ];
+  computed: {
+    ...mapGetters({
+      paymentsList: "getPaymentsList",
+    }),
+    currentElements() {
+      return this.paymentsList.slice(
+        this.n * (this.page - 1),
+        this.n * (this.page - 1) + this.n
+      );
     },
-    onDataPaymentAdd(data) {
-      this.paymentsList.push(data);
+  },
+  methods: {
+    ...mapActions(["fetchData"]),
+    onChangePage(p) {
+      this.page = p;
+      this.fetchData(p);
     },
   },
   created() {
-    this.paymentsList = this.fetchData();
+    this.fetchData(this.page);
   },
 };
 </script>
@@ -86,7 +85,7 @@ main {
   padding: 10px 15px;
   background-color: rgb(27, 141, 103);
   color: rgb(255, 255, 255);
-  border: none;
+  border: 1px solid rgb(27, 141, 103);
   border-radius: 5px;
   margin-bottom: 20px;
   &:hover {
