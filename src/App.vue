@@ -10,7 +10,7 @@
         </button>
         <AddPaymentForm v-show="showForm" />
         <PaymentsDisplay :items="currentElements" />
-        <Pagination :cur="1" :n="n" :length="6" @paginate="onChangePage" />
+        <Pagination :cur="page" :n="n" :length="6" @paginate="onChangePage" />
       </main>
     </div>
   </div>
