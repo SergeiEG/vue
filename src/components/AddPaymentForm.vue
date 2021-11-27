@@ -17,7 +17,7 @@ export default {
       value: 0,
       category: "",
       date: "",
-      id: 0
+      id: 0,
     };
   },
   computed: {
@@ -29,9 +29,9 @@ export default {
       return `${d}.${m}.${y}`;
     },
     ...mapGetters(["getMaxId"]),
-    getId(){
-      if(this.getMaxId <= 6) return 7
-      else return this.getMaxId + 1
+    getId() {
+      if (this.getMaxId <= 6) return 7;
+      else return this.getMaxId + 1;
     },
   },
   methods: {
@@ -47,6 +47,17 @@ export default {
       };
       this.addData(data);
     },
+  },
+  mounted() {
+    if (this.$route.params?.category) {
+      this.category = String(this.$route.params.category);
+    }
+    if (this.$route.query?.value) {
+      this.value = Number(this.$route.query.value);
+    }
+    if (this.category !== "" && this.value !== 0) {
+      this.onSaveClick();
+    }
   },
 };
 </script>

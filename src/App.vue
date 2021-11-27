@@ -5,10 +5,36 @@
         <h1>My personal costs</h1>
       </header>
       <main>
-        <button class="form-btn" @click="showForm = !showForm">
+        <button class="form-btn" @click="goToAddPayment()">
           ADD NEW COST +
         </button>
-        <AddPaymentForm v-show="showForm" />
+        <router-link
+          :to="{
+            name: 'addPayment',
+            params: { category: 'Food' },
+            query: { value: '200' },
+          }"
+          replace
+        >
+          Food+200</router-link
+        >
+        <router-link
+          :to="{
+            name: 'addPayment',
+            params: { category: 'Transport' },
+            query: { value: '50' },
+          }"
+          >Transport + 50</router-link
+        >
+        <router-link
+          :to="{
+            name: 'addPayment',
+            params: { category: 'Entertainment' },
+            query: { value: '2000' },
+          }"
+          >Entertainment + 2000</router-link
+        >
+        <router-view />
         <PaymentsDisplay :items="currentElements" />
         <Pagination
           :cur="page"
@@ -22,7 +48,6 @@
 </template>
 
 <script>
-import AddPaymentForm from "./components/AddPaymentForm.vue";
 import PaymentsDisplay from "./components/PaymentsDisplay.vue";
 import { mapGetters, mapActions } from "vuex";
 import Pagination from "./components/Pagination.vue";
@@ -31,7 +56,6 @@ export default {
   name: "App",
   components: {
     PaymentsDisplay,
-    AddPaymentForm,
     Pagination,
   },
   data() {
@@ -51,17 +75,22 @@ export default {
         this.n * (this.page - 1) + this.n
       );
     },
-    getNumbElement(){
-      if(this.paymentsList.length <= 6) return 6;
+    getNumbElement() {
+      if (this.paymentsList.length <= 6) return 6;
       else return this.paymentsList.length;
     },
   },
   methods: {
     ...mapActions(["fetchData"]),
     onChangePage(p) {
-      this.page = p
-      if(p <= 2) this.fetchData(this.page) 
+      this.page = p;
+      if (p <= 2) this.fetchData(this.page);
       //чтобы ошибка не вылетала
+    },
+    goToAddPayment() {
+      this.$route.name !== "addPayment"
+        ? this.$router.push({ name: "addPayment" })
+        : this.$router.push({ path: "/" });
     },
   },
   created() {
