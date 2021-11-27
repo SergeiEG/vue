@@ -7,19 +7,20 @@ export default new Vuex.Store({
     state: {
         paymentsList: [],
         paymentsListIDS: [],
+        maxId: 6,
     },
     mutations: {
         setPaymentsListData(state, payload) {
             const uniqIdsObj = payload.filter((item) => {
                 return state.paymentsListIDS.indexOf(item.id) < 0
             })
-
             const uniqIds = uniqIdsObj.map(obj => obj.id)
             state.paymentsList.push(...uniqIdsObj)
             state.paymentsListIDS.push(...uniqIds)
         },
         addDataToPaymentsList(state, data) {
             state.paymentsList.push(data)
+            state.maxId = data.id
         },
     },
     actions: {
@@ -46,6 +47,7 @@ export default new Vuex.Store({
         }
     },
     getters: {
-        getPaymentsList: state => state.paymentsList
+        getPaymentsList: state => state.paymentsList,
+        getMaxId: state => state.maxId
     }
 })

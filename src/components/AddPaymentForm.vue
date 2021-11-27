@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import { mapMutations } from "vuex";
+import { mapMutations, mapGetters } from "vuex";
 
 export default {
   name: "AddPaymentForm",
@@ -17,6 +17,7 @@ export default {
       value: 0,
       category: "",
       date: "",
+      id: 0
     };
   },
   computed: {
@@ -27,6 +28,11 @@ export default {
       const y = today.getFullYear();
       return `${d}.${m}.${y}`;
     },
+    ...mapGetters(["getMaxId"]),
+    getId(){
+      if(this.getMaxId <= 6) return 7
+      else return this.getMaxId + 1
+    },
   },
   methods: {
     ...mapMutations({
@@ -34,6 +40,7 @@ export default {
     }),
     onSaveClick() {
       const data = {
+        id: this.getId,
         date: this.date || this.getCurrentDate,
         category: this.category,
         value: this.value,

@@ -10,7 +10,12 @@
         </button>
         <AddPaymentForm v-show="showForm" />
         <PaymentsDisplay :items="currentElements" />
-        <Pagination :cur="page" :n="n" :length="6" @paginate="onChangePage" />
+        <Pagination
+          :cur="page"
+          :n="n"
+          :length="getNumbElement"
+          @paginate="onChangePage"
+        />
       </main>
     </div>
   </div>
@@ -46,12 +51,17 @@ export default {
         this.n * (this.page - 1) + this.n
       );
     },
+    getNumbElement(){
+      if(this.paymentsList.length <= 6) return 6;
+      else return this.paymentsList.length;
+    },
   },
   methods: {
     ...mapActions(["fetchData"]),
     onChangePage(p) {
-      this.page = p;
-      this.fetchData(p);
+      this.page = p
+      if(p <= 2) this.fetchData(this.page) 
+      //чтобы ошибка не вылетала
     },
   },
   created() {

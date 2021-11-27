@@ -42,7 +42,6 @@ export default {
 .payments-table {
   width: 500px;
   border-collapse: collapse;
-  margin-bottom: 30px;
   & th {
     font-weight: bold;
     padding: 10px;
