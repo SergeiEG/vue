@@ -16,7 +16,9 @@
           <td>{{ item.date }}</td>
           <td>{{ item.category }}</td>
           <td>{{ item.value }}</td>
-          <td class="menu__btn"><dropdown-menu :item="item" /></td>
+          <td class="menu__btn">
+            <dropdown-menu :item="item" />
+          </td>
         </tr>
       </tbody>
     </table>

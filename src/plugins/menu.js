@@ -17,7 +17,6 @@ export default {
 
             show(item) {
                 this.EventBus.$emit('show', { item })
-                    // console.log(item);
             },
 
         }

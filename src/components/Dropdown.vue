@@ -1,10 +1,12 @@
 <template>
   <div @click="showDropdown = !showDropdown">
     &#8286;
-    <div class="Dropdown" v-if="showDropdown">
-      <p @click="onEditForm">Редактировать</p>
-      <p @click="onRemoveEl">Удалить</p>
-    </div>
+    <transition name="fade">
+      <div class="Dropdown" v-if="showDropdown">
+        <p @click="onEditForm">Редактировать</p>
+        <p @click="onRemoveEl">Удалить</p>
+      </div>
+    </transition>
   </div>
 </template>
 
@@ -37,7 +39,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" >
 .Dropdown {
   position: absolute;
   background-color: rgb(255, 255, 255);
@@ -63,5 +65,13 @@ export default {
       background-color: rgb(180, 178, 178);
     }
   }
+}
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
+}
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
 }
 </style>
