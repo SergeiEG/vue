@@ -20,10 +20,6 @@ export default {
                     // console.log(item);
             },
 
-            hide() {
-                this.EventBus.$emit('hide')
-            }
-
         }
     }
 }
