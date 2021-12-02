@@ -35,6 +35,7 @@
           >Entertainment + 2000</router-link
         >
         <router-view />
+        <modal />
         <PaymentsDisplay :items="currentElements" />
         <Pagination
           :cur="page"
@@ -48,19 +49,16 @@
 </template>
 
 <script>
-import PaymentsDisplay from "./components/PaymentsDisplay.vue";
 import { mapGetters, mapActions } from "vuex";
-import Pagination from "./components/Pagination.vue";
 
 export default {
   name: "App",
   components: {
-    PaymentsDisplay,
-    Pagination,
+    PaymentsDisplay: () => import("./components/PaymentsDisplay.vue"),
+    Pagination: () => import("./components/Pagination.vue"),
   },
   data() {
     return {
-      showForm: false,
       page: 1,
       n: 3,
     };

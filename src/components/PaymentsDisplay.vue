@@ -7,6 +7,7 @@
           <th>Date</th>
           <th>Category</th>
           <th>Value</th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
@@ -15,6 +16,7 @@
           <td>{{ item.date }}</td>
           <td>{{ item.category }}</td>
           <td>{{ item.value }}</td>
+          <td class="menu__btn"><dropdown-menu :item="item" /></td>
         </tr>
       </tbody>
     </table>
@@ -24,12 +26,19 @@
 <script>
 export default {
   name: "PaymentsDisplay",
+
   props: {
     items: {
       type: Array,
       default: () => [],
     },
   },
+  data() {
+    return {
+      showMenu: false,
+    };
+  },
+  methods: {},
 };
 </script>
 
@@ -51,5 +60,9 @@ export default {
     padding: 10px;
     border-bottom: 1px solid rgb(209, 206, 206);
   }
+}
+.menu__btn {
+  cursor: pointer;
+  position: relative;
 }
 </style>

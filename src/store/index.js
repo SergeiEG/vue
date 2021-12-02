@@ -22,6 +22,16 @@ export default new Vuex.Store({
             state.paymentsList.push(data)
             state.maxId = data.id
         },
+        removeDataToPaymentsList(state, data) {
+            state.paymentsList.splice(state.paymentsList.indexOf(data), 1)
+
+        },
+        editDataToPaymentsList(state, payload) {
+            const idx = state.paymentsList.indexOf(payload[0])
+            if (idx !== -1) {
+                state.paymentsList.splice(idx, 1, payload[1])
+            }
+        }
     },
     actions: {
         fetchData({ commit }, page) {

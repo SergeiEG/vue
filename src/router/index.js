@@ -1,13 +1,13 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import AddPaymentForm from '../components/AddPaymentForm.vue'
 
 Vue.use(VueRouter)
 
 const routes = [{
     path: '/add/payment/:category',
     name: "addPayment",
-    component: AddPaymentForm
+    component: () =>
+        import ('../components/AddPaymentForm.vue')
 }]
 
 const router = new VueRouter({
