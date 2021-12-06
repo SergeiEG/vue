@@ -1,8 +1,13 @@
 <template>
   <div class="payment-content">
-    <input placeholder="Date" v-model="date" />
-    <input placeholder="Category" v-model="category" />
-    <input placeholder="Value" type="number" v-model.number="value" />
+    <input name="date" placeholder="Date" v-model="date" />
+    <input name="category" placeholder="Category" v-model="category" />
+    <input
+      name="value"
+      placeholder="Value"
+      type="number"
+      v-model.number="value"
+    />
     <button @click="onSaveClick">ADD +</button>
   </div>
 </template>
