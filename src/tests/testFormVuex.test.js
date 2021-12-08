@@ -29,6 +29,18 @@ describe('PaymentForm', () => {
             localVue,
             router,
         })
+        await wrapper.find("button").trigger('click')
+
+        expect(mutations.addDataToPaymentsList).toHaveBeenCalled()
+
+    })
+
+    it('test input PaymentForm', async() => {
+        const wrapper = shallowMount(AddPaymentForm, {
+            store,
+            localVue,
+            router,
+        })
 
         const date = wrapper.find("input[name=date]")
         date.setValue("11.11.2011")
@@ -53,5 +65,4 @@ describe('PaymentForm', () => {
         })
 
     })
-
 })

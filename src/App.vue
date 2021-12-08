@@ -5,7 +5,7 @@
         <h1>My personal costs</h1>
       </header>
       <main>
-        <button class="form-btn" @click="goToAddPayment()">
+        <button class="form-btn" @click="goToAddPayment">
           ADD NEW COST +
         </button>
         <router-link

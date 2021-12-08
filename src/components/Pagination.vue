@@ -1,6 +1,6 @@
 <template>
   <div class="wrp">
-    <div @click="onClick(cur - 1)">&#60;</div>
+    <div class="previous" @click="onClick(cur - 1)">&#60;</div>
     <div
       v-for="page in amountPages"
       :key="page"
@@ -9,7 +9,7 @@
     >
       {{ page }}
     </div>
-    <div @click="onClick(cur + 1)">&#62;</div>
+    <div class="next" @click="onClick(cur + 1)">&#62;</div>
   </div>
 </template>
 

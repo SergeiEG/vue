@@ -17,7 +17,7 @@
           <td>{{ item.category }}</td>
           <td>{{ item.value }}</td>
           <td class="menu__btn">
-            <dropdown-menu :key="item" :item="item" />
+            <dropdown-menu :key="item.id" :item="item" />
           </td>
         </tr>
       </tbody>

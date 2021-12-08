@@ -1,5 +1,5 @@
 <template>
-  <div @click="showDropdown = !showDropdown">
+  <div class="dropshow" @click="showDropdown = !showDropdown">
     &#8286;
     <transition name="fade">
       <div class="Dropdown" v-if="showDropdown">
@@ -21,7 +21,7 @@ export default {
   data() {
     return {
       showDropdown: false,
-      data: this.item,
+      data: {},
     };
   },
   methods: {
@@ -35,7 +35,9 @@ export default {
       this.$menu.show(this.data);
     },
   },
-  mounted() {},
+  created() {
+    this.data = this.item;
+  },
 };
 </script>
 
