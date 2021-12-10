@@ -1,11 +1,10 @@
-import { shallowMount, createLocalVue } from '@vue/test-utils'
+import { mount, shallowMount, createLocalVue } from '@vue/test-utils'
 import AddPaymentForm from '../components/AddPaymentForm.vue'
 import Vuex from 'vuex'
 import VueRouter from "vue-router"
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
-localVue.use(VueRouter)
 
 const mutations = {
     addDataToPaymentsList: jest.fn()
@@ -20,22 +19,56 @@ const store = new Vuex.Store({
         getMaxId: (state) => state.MaxId
     }
 })
-const router = new VueRouter()
 
 describe('PaymentForm', () => {
-    it('test input PaymentForm', async() => {
-        const wrapper = shallowMount(AddPaymentForm, {
+    it('test route.params PaymentForm', async() => {
+        const router = new VueRouter()
+        const wrapper = mount(AddPaymentForm, {
             store,
             localVue,
             router,
+            mocks: {
+                $route: {
+                    path: '/add/payment/',
+                    params: { category: 'cookies' },
+                }
+            }
         })
-        await wrapper.find("button").trigger('click')
+
+        const category = wrapper.find('input[name=category]')
+        expect(wrapper.vm.category).toBe('cookies')
+
+
+        expect(mutations.addDataToPaymentsList).not.toHaveBeenCalled()
+
+    })
+    it('test route.query & save PaymentForm', async() => {
+        const router = new VueRouter()
+        const wrapper = mount(AddPaymentForm, {
+            store,
+            localVue,
+            router,
+            mocks: {
+                $route: {
+                    path: '/add/payment/',
+                    params: { category: 'cookies' },
+                    query: { value: '300' }
+                }
+            }
+        })
+        const category = wrapper.find('input[name=category]')
+        expect(wrapper.vm.category).toBe('cookies')
+
+        const value = wrapper.find("input[name=value]")
+        expect(wrapper.vm.value).toBe(300)
+
 
         expect(mutations.addDataToPaymentsList).toHaveBeenCalled()
-
     })
 
     it('test input PaymentForm', async() => {
+        localVue.use(VueRouter)
+        const router = new VueRouter()
         const wrapper = shallowMount(AddPaymentForm, {
             store,
             localVue,
