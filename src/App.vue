@@ -5,10 +5,9 @@
         <h1>My personal costs</h1>
       </header>
       <main>
-        <button class="form-btn" @click="goToAddPayment">
-          ADD NEW COST +
-        </button>
+        <button class="form-btn" @click="goToAddPayment">ADD NEW COST +</button>
         <router-link
+          class="fist_link"
           :to="{
             name: 'addPayment',
             params: { category: 'Food' },
@@ -50,11 +49,12 @@
 
 <script>
 import { mapGetters, mapActions } from "vuex";
+import PaymentsDisplay from "./components/PaymentsDisplay.vue";
 
 export default {
   name: "App",
   components: {
-    PaymentsDisplay: () => import("./components/PaymentsDisplay.vue"),
+    PaymentsDisplay,
     Pagination: () => import("./components/Pagination.vue"),
   },
   data() {

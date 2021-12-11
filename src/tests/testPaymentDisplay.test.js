@@ -20,11 +20,8 @@ describe('PaymentsDisplay', () => {
     it('test dropdown-menu', async() => {
         const wrapper = mount(PaymentsDisplay, {
             localVue,
-            propsData: {
-                items: [{ "id": 999, "date": "20.03.2020", "category": "Проверка прошла", "value": 9999 }, ]
-            }
         })
-        await wrapper.findComponent({ name: "Dropdown" }).trigger('click')
-        expect(wrapper.find("div.Dropdown").isVisible()).toBe(true)
+        expect(wrapper.find("tbody").text()).toBe("")
+
     })
 })
