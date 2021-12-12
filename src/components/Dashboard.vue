@@ -1,50 +1,46 @@
 <template>
-  <div id="app">
-    <div class="wrapper">
-      <header>
-        <h1>My personal costs</h1>
-      </header>
-      <main>
-        <button class="form-btn" @click="goToAddPayment">
-          ADD NEW COST +
-        </button>
-        <router-link
-          :to="{
-            name: 'addPayment',
-            params: { category: 'Food' },
-            query: { value: '200' },
-          }"
-          replace
-        >
-          Food+200</router-link
-        >
-        <router-link
-          :to="{
-            name: 'addPayment',
-            params: { category: 'Transport' },
-            query: { value: '50' },
-          }"
-          >Transport + 50</router-link
-        >
-        <router-link
-          :to="{
-            name: 'addPayment',
-            params: { category: 'Entertainment' },
-            query: { value: '2000' },
-          }"
-          >Entertainment + 2000</router-link
-        >
-        <router-view />
-        <modal />
-        <PaymentsDisplay :items="currentElements" />
-        <Pagination
-          :cur="page"
-          :n="n"
-          :length="getNumbElement"
-          @paginate="onChangePage"
-        />
-      </main>
-    </div>
+  <div class="wrapper">
+    <header>
+      <h1>My personal costs</h1>
+    </header>
+    <main>
+      <button class="form-btn" @click="goToAddPayment">ADD NEW COST +</button>
+      <router-link
+        :to="{
+          name: 'addPayment',
+          params: { category: 'Food' },
+          query: { value: '200' },
+        }"
+        replace
+      >
+        Food+200</router-link
+      >
+      <router-link
+        :to="{
+          name: 'addPayment',
+          params: { category: 'Transport' },
+          query: { value: '50' },
+        }"
+        >Transport + 50</router-link
+      >
+      <router-link
+        :to="{
+          name: 'addPayment',
+          params: { category: 'Entertainment' },
+          query: { value: '2000' },
+        }"
+        >Entertainment + 2000</router-link
+      >
+      <router-view />
+      <modal />
+      <PaymentsDisplay :items="currentElements" />
+      <Pagination
+        :cur="page"
+        :n="n"
+        :length="getNumbElement"
+        @paginate="onChangePage"
+      />
+    </main>
   </div>
 </template>
 
@@ -52,10 +48,10 @@
 import { mapGetters, mapActions } from "vuex";
 
 export default {
-  name: "App",
+  name: "Dashboard",
   components: {
-    PaymentsDisplay: () => import("./components/PaymentsDisplay.vue"),
-    Pagination: () => import("./components/Pagination.vue"),
+    PaymentsDisplay: () => import("./PaymentsDisplay.vue"),
+    Pagination: () => import("./Pagination.vue"),
   },
   data() {
     return {
