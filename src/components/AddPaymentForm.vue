@@ -1,15 +1,14 @@
 <template>
-  <div class="payment-content">
-    <input name="date" placeholder="Date" v-model="date" />
-    <input name="category" placeholder="Category" v-model="category" />
-    <input
-      name="value"
-      placeholder="Value"
-      type="number"
-      v-model.number="value"
-    />
-    <button @click="onSaveClick">ADD +</button>
-  </div>
+  <v-card class="pa-5">
+    <v-text-field label="Date" outlined v-model="date"></v-text-field>
+    <v-text-field label="Category" outlined v-model="category"></v-text-field>
+    <v-text-field label="Value" outlined v-model.number="value"></v-text-field>
+    <v-flex class="text-right">
+      <v-btn class="mb-5" color="teal" dark @click="onSaveClick"
+        >ADD <v-icon>mdi-plus</v-icon></v-btn
+      >
+    </v-flex>
+  </v-card>
 </template>
 
 <script>
@@ -68,32 +67,4 @@ export default {
 </script>
 
 <style lang="scss" >
-.payment-content {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 30px;
-  max-width: 250px;
-  & input {
-    padding: 5px 10px;
-    max-width: 250px;
-    margin-bottom: 10px;
-    border: 2px solid gray;
-    border-radius: 4px;
-    opacity: 0.5;
-  }
-  & button {
-    padding: 10px 15px;
-    background-color: rgb(27, 141, 103);
-    color: rgb(255, 255, 255);
-    border: 1px solid rgb(27, 141, 103);
-    border-radius: 5px;
-    max-width: 125px;
-    align-self: flex-end;
-    &:hover {
-      background-color: rgb(255, 255, 255);
-      color: rgb(27, 141, 103);
-      border: 1px solid rgb(27, 141, 103);
-    }
-  }
-}
 </style>

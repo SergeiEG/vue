@@ -7,13 +7,7 @@ const routes = [{
         path: '/',
         name: "Dashboard",
         component: () =>
-            import ('../components/Dashboard.vue'),
-        children: [{
-            path: '/add/payment/:category',
-            name: "addPayment",
-            component: () =>
-                import ('../components/AddPaymentForm.vue')
-        }]
+            import ('../components/Dashboard.vue')
     },
     {
         path: '/About',

@@ -1,28 +1,12 @@
 <template>
-  <div class="payments-display-wrapper">
-    <table class="payments-table">
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>Date</th>
-          <th>Category</th>
-          <th>Value</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="(item, idx) in items" :key="idx">
-          <td>{{ item.id }}</td>
-          <td>{{ item.date }}</td>
-          <td>{{ item.category }}</td>
-          <td>{{ item.value }}</td>
-          <td class="menu__btn">
-            <dropdown-menu :key="item.id" :item="item" />
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+  <v-data-table
+    :headers="headers"
+    :items="items"
+    :sort-by="['id']"
+    :sort-desc="[false, true]"
+    multi-sort
+    class="elevation-1"
+  ></v-data-table>
 </template>
 
 <script>
@@ -38,6 +22,12 @@ export default {
   data() {
     return {
       showMenu: false,
+      headers: [
+        { text: "#", value: "id" },
+        { text: "Date", value: "date" },
+        { text: "Category", value: "category" },
+        { text: "Value", value: "value" },
+      ],
     };
   },
   methods: {},
@@ -45,26 +35,4 @@ export default {
 </script>
 
 <style lang="scss">
-.payments-display-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-.payments-table {
-  width: 500px;
-  border-collapse: collapse;
-  & th {
-    font-weight: bold;
-    padding: 10px;
-    border-bottom: 1px solid rgb(209, 206, 206);
-  }
-  & td {
-    padding: 10px;
-    border-bottom: 1px solid rgb(209, 206, 206);
-  }
-}
-.menu__btn {
-  cursor: pointer;
-  position: relative;
-}
 </style>
