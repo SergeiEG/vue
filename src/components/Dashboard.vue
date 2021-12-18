@@ -14,6 +14,10 @@
           <AddPaymentForm />
         </v-dialog>
         <PaymentsDisplay :items="paymentsList" />
+        <modal />
+      </v-col>
+      <v-col class="d-flex justify-center">
+        <ChartDoughnut :items="paymentsList" />
       </v-col>
     </v-row>
   </v-container>
@@ -21,15 +25,19 @@
 
 <script>
 import { mapGetters, mapActions } from "vuex";
+import ChartDoughnut from "./ChartDoughnut.vue";
 
 export default {
   name: "Dashboard",
   components: {
     PaymentsDisplay: () => import("./PaymentsDisplay.vue"),
     AddPaymentForm: () => import("./AddPaymentForm.vue"),
+    ChartDoughnut,
   },
   data() {
-    return {};
+    return {
+      dialog: false,
+    };
   },
   computed: {
     ...mapGetters({

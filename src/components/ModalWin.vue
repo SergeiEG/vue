@@ -1,10 +1,20 @@
 <template>
-  <div class="modal" v-if="showWin">
-    <input placeholder="id" v-model="id" />
-    <input placeholder="Category" v-model="category" />
-    <input placeholder="Value" type="number" v-model.number="value" />
-    <button @click="onSaveClick">Save</button>
-  </div>
+  <v-dialog v-model="dialogEdit" max-width="500px">
+    <v-card class="pa-5">
+      <v-text-field label="Date" outlined v-model="date"></v-text-field>
+      <v-text-field label="Category" outlined v-model="category"></v-text-field>
+      <v-text-field
+        label="Value"
+        outlined
+        v-model.number="value"
+      ></v-text-field>
+      <v-flex class="text-right">
+        <v-btn class="mb-5" color="teal" dark @click="onSaveClick"
+          >ADD <v-icon>mdi-plus</v-icon></v-btn
+        >
+      </v-flex>
+    </v-card>
+  </v-dialog>
 </template>
 
 <script>
@@ -14,7 +24,7 @@ export default {
   name: "ModalWin",
   data() {
     return {
-      showWin: false,
+      dialogEdit: false,
       id: 0,
       date: 0,
       category: "",
@@ -27,7 +37,7 @@ export default {
       editData: "editDataToPaymentsList",
     }),
     onShow(data) {
-      this.showWin = true;
+      this.dialogEdit = true;
       this.id = data.item.id;
       this.date = data.item.date;
       this.category = data.item.category;
@@ -43,7 +53,7 @@ export default {
       };
       const editData = [this.data, newData];
       this.editData(editData);
-      this.showWin = false;
+      this.dialogEdit = false;
     },
   },
   mounted() {
@@ -53,15 +63,4 @@ export default {
 </script>
 
 <style lang="scss">
-.modal {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background-color: rgba(0, 0, 0, 0.3);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
 </style>

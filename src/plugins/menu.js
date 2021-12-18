@@ -1,4 +1,3 @@
-import Dropdown from '../components/Dropdown.vue'
 import ModalWin from '../components/ModalWin'
 
 export default {
@@ -9,7 +8,6 @@ export default {
 
         this.installed = true
 
-        Vue.component('dropdown-menu', Dropdown)
         Vue.component('modal', ModalWin)
 
         Vue.prototype.$menu = {
@@ -18,7 +16,6 @@ export default {
             show(item) {
                 this.EventBus.$emit('show', { item })
             },
-
         }
     }
 }
