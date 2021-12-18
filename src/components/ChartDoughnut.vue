@@ -52,7 +52,7 @@ export default {
           labels: this.newObjData.map((el) => el.category),
           datasets: [
             {
-              label: "My First Dataset",
+              label: "Coast by categories",
               data: this.newObjData.map((el) => el.value),
               backgroundColor: [
                 "rgb(255, 99, 132)",
